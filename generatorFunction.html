@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones generadoras en JS</title>
+</head>
+<body>
+    
+
+<input type="button" name="" onclick="get()" id="" value="Obtener">
+<div id="miDiv"></div>
+
+<script>
+async function* request() {
+    let i = 1;
+
+    let url = "https://jsonplaceholder.typicode.com/todos/"
+    while(true){
+        let resp = await fetch(url+i);
+        let json = await resp.json();
+
+        yield json;
+        i++;
+    }
+}
+
+let r = request();
+
+async function get() {
+    // console.log(await r.next());
+    let content = await r.next();
+    document.getElementById('miDiv').innerHTML += content.value.title + '<br>'; 
+}
+
+
+
+</script>
+</body>
+</html>
